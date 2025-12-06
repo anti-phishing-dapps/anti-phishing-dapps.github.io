@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>PhishWatch – Phishing DApp Directory | Blocklist of Malicious Web3 Domains</title>
+  <meta name="description" content="PhishWatch is a multilingual, searchable directory of confirmed phishing DApps and clone sites in Web3. Browse, filter by tags, and stay safer online." />
+  <meta name="keywords" content="phishing, dapp, web3 security, scam sites, malicious domains, crypto security, blocklist, domain blacklist" />
+
+  <link rel="canonical" href="https://anti-phishing-dapps.github.io/" />
+  <link rel="alternate" hreflang="en" href="https://anti-phishing-dapps.github.io/?lang=en" />
+  <link rel="alternate" hreflang="zh-Hant" href="https://anti-phishing-dapps.github.io/?lang=zh-Hant" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://anti-phishing-dapps.github.io/?lang=zh-Hans" />
+  <link rel="alternate" hreflang="x-default" href="https://anti-phishing-dapps.github.io/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://anti-phishing-dapps.github.io/" />
+  <meta property="og:title" content="PhishWatch – Phishing DApp Directory" />
+  <meta property="og:description" content="A public, multilingual directory of confirmed phishing DApps and clone sites. Search, filter, and stay safe." />
+  <meta property="og:site_name" content="PhishWatch" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="PhishWatch – Phishing DApp Directory" />
+  <meta name="twitter:description" content="Public, multilingual blocklist of phishing DApps and clone sites. Search and filter by tag." />
+
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+  <meta name="theme-color" content="#0a2540" />
+
+  <style>
+    :root{
+      --bg:#0b1320; --card:#111a2b; --muted:#7c8aa0; --text:#e6edf6; --accent:#4fd1c5; --accent-2:#60a5fa; --danger:#f87171;
+      --border:#22324a; --chip:#1b2740; --focus:#99f6e4;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+    a{color:var(--accent-2);text-decoration:none}
+    a:hover{text-decoration:underline}
+    header{position:sticky;top:0;background:linear-gradient(180deg,#0b1320 0%,rgba(11,19,32,.9) 70%,rgba(11,19,32,0) 100%);backdrop-filter:saturate(140%) blur(10px);z-index:10;border-bottom:1px solid var(--border)}
+    .wrap{max-width:1100px;margin:0 auto;padding:16px}
+    .row{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:10px}
+    .logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);display:inline-grid;place-items:center;color:#0b1320;font-weight:800}
+    h1{font-size:22px;margin:0}
+    h2{font-size:16px;margin:12px 0 6px}
+    .muted{color:var(--muted)}
+    .controls{display:grid;gap:12px;margin-top:12px}
+    .controls .search-row{display:block}
+    .controls .filters-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media(max-width:679px){
+      .controls .filters-row{grid-template-columns:1fr}
+    }
+    input[type="search"],select{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);outline:none}
+    input[type="search"]:focus,select:focus{box-shadow:0 0 0 3px var(--focus)}
+    .az{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0}
+    .az button{min-width:28px;padding:6px 8px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer}
+    .az button.active{background:var(--accent);color:#0b1320;border-color:transparent}
+    .grid{display:grid;grid-template-columns:1fr;gap:12px}
+    @media(min-width:680px){.grid{grid-template-columns:1fr 1fr}}
+    .card{border:1px solid var(--border);background:var(--card);border-radius:12px;padding:12px}
+    .domain{font-weight:700;word-break:break-all}
+    .tags{display:flex;flex-wrap:wrap;gap:6px}
+    .tag{font-size:12px;padding:4px 8px;border-radius:6px;background:#1e2a44;border:1px solid var(--border)}
+    .danger{background:#2a1717;border-color:#5f2323;color:#fbaaaa}
+    .count{margin:10px 0 0 0}
+    .count + .spacer{height:10px}
+    footer{border-top:1px solid var(--border);margin-top:20px;padding:16px 0}
+    .langswitch{display:flex;gap:8px;align-items:center;white-space:nowrap}
+    .small{font-size:12px;color:var(--muted)}
+    .footer-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+    .footer-links{display:flex;gap:12px;flex-wrap:wrap}
+    .section-title{margin-bottom:6px}
+    .notice{padding:8px 12px;border:1px dashed var(--border);border-radius:10px;background:#0f1729;color:var(--muted);margin:10px 0}
+    .error{color:#ffb4b4}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;clip:rect(0,0,0,0);overflow:hidden;border:0;white-space:nowrap}
+  </style>
+
+  <script>
+    const i18n = {
+      en: {
+        htmlLang: "en",
+        title: "PhishWatch – Phishing DApp Directory | Blocklist of Malicious Web3 Domains",
+        tagline: "Public, searchable directory of confirmed phishing DApps and clone sites.",
+        searchLabel: "Search",
+        searchPlaceholder: "Search domains, e.g. fuseeta or fuseeta.com",
+        filterTag: "Tag filter",
+        allTags: "All tags",
+        language: "Language",
+        count: n => `${n} domains`,
+        a2z: "A–Z filter (by domain name)",
+        updated: "Last updated",
+        fetching: "Loading data…",
+        fetchFailed: "Could not load data.json, showing built-in fallback.",
+        dataLastUpdated: d => `Data last updated: ${d}`,
+        faqH: "About PhishWatch",
+        faqP: "PhishWatch is a community-driven, multilingual blocklist of phishing DApps and clone sites. Use this tool to search, filter, and stay safer online.",
+        tags: { phishing:"phishing", dapp:"DApp" },
+        metaDesc: "PhishWatch is a multilingual, searchable directory of confirmed phishing DApps and clone sites in Web3. Browse, filter by tags, and stay safer online."
+      },
+      "zh-Hant": {
+        htmlLang: "zh-Hant",
+        title: "PhishWatch – 釣魚 DApp 名單 | 惡意 Web3 網域封鎖清單",
+        tagline: "公開、可搜尋的已確認釣魚 DApp／克隆站清單。",
+        searchLabel: "搜尋",
+        searchPlaceholder: "搜尋網域，如 fuseeta 或 fuseeta.com",
+        filterTag: "標籤篩選",
+        allTags: "全部標籤",
+        language: "語言",
+        count: n => `${n} 個網域`,
+        a2z: "字母篩選（依網域名稱）",
+        updated: "最後更新",
+        fetching: "資料載入中…",
+        fetchFailed: "無法載入 data.json，已顯示內建後備資料。",
+        dataLastUpdated: d => `資料最後更新：${d}`,
+        faqH: "關於 PhishWatch",
+        faqP: "PhishWatch 是由社群維護的多語系釣魚 DApp／克隆站封鎖清單。用它搜尋與篩選，提高上網安全。",
+        tags: { phishing:"釣魚", dapp:"DApp" },
+        metaDesc: "PhishWatch 是多語系、可搜尋的 Web3 釣魚 DApp／克隆站清單。支援標籤篩選，協助你更安全地瀏覽。"
+      },
+      "zh-Hans": {
+        htmlLang: "zh-Hans",
+        title: "PhishWatch – 钓鱼 DApp 名单 | 恶意 Web3 域名拦截清单",
+        tagline: "公开、可搜索的已确认钓鱼 DApp/克隆站清单。",
+        searchLabel: "搜索",
+        searchPlaceholder: "搜索域名，如 fuseeta 或 fuseeta.com",
+        filterTag: "标签筛选",
+        allTags: "全部标签",
+        language: "语言",
+        count: n => `${n} 个域名`,
+        a2z: "字母筛选（按域名）",
+        updated: "最后更新",
+        fetching: "正在载入数据…",
+        fetchFailed: "无法加载 data.json，已显示内置后备数据。",
+        dataLastUpdated: d => `数据最后更新：${d}`,
+        faqH: "关于 PhishWatch",
+        faqP: "PhishWatch 是一个由社区维护的多语言钓鱼 DApp/克隆站拦截清单。可搜索、可筛选，帮助你更安全地上网。",
+        tags: { phishing:"钓鱼", dapp:"DApp" },
+        metaDesc: "PhishWatch 是多语言、可搜索的 Web3 钓鱼 DApp/克隆站清单。支持标签筛选，帮助你更安全地浏览。"
+      }
+    };
+
+    const YEAR = new Date().getFullYear();
+
+    // Fallback seed domains
+    const seedDomains = [
+      "www.fusehe.com","www.fusehk.com","www.fusehs.com","www.fuseht.com","www.fusehu.com","www.fusehv.com","www.fusehx.com",
+      "www.fusepb.com","www.fusepe.com","www.fusepg.com","www.fuseph.com","www.fusepn.com","www.fusept.com","www.fusepu.com",
+      "www.fusepw.com","www.fusepy.com","www.fusepz.com","www.fuseua.com","www.fuseun.com","www.fuseuw.com","www.fuseuz.com",
+      "www.fuseeta.com","www.fuseetc.com","www.fuseetd.com","www.fuseetf.com","www.fuseeth.com","www.fuseets.com"
+    ];
+
+    function stripWWW(host){
+      return host.toLowerCase().replace(/^https?:\/\//,'').replace(/^www\./,'');
+    }
+    function normalizeQuery(q){ return q.trim().toLowerCase(); }
+    function fmtDate(d){
+      try{
+        const date = typeof d === "string" ? new Date(d) : d;
+        if (isNaN(date.getTime())) return "";
+        return date.toISOString().slice(0,10);
+      }catch(e){ return ""; }
+    }
+
+    const state = {
+      lang: (new URL(location.href).searchParams.get("lang")) || ((navigator.language||"en").startsWith("zh") ? ((navigator.language||"").includes("Hans") ? "zh-Hans" : "zh-Hant") : "en"),
+      q: "",
+      tag: "",
+      letter: "",
+      dataUpdatedISO: ""
+    };
+    let rawData = [];
+    let meta = {};
+
+    function uniqueByBase(items){
+      const map = new Map();
+      items.forEach(it=>{
+        const key = it.base;
+        if(!map.has(key)){
+          map.set(key, { ...it, variants: [it.domain] });
+        } else {
+          map.get(key).variants.push(it.domain);
+        }
+      });
+      return Array.from(map.values()).sort((a,b)=> a.base.localeCompare(b.base));
+    }
+
+    function uniqueTags(){
+      const s = new Set();
+      rawData.forEach(d => d.tags?.forEach?.(t => s.add(t)));
+      return Array.from(s).sort();
+    }
+
+    function filterData(){
+      const q = normalizeQuery(state.q);
+      let items = uniqueByBase(rawData);
+
+      items = items.filter(item => {
+        if (state.letter && item.base[0] !== state.letter) return false;
+        if (state.tag && !(item.tags||[]).includes(state.tag)) return false;
+        if (!q) return true;
+        if (item.base.includes(q)) return true;
+        return item.variants.some(v => v.includes(q));
+      });
+
+      return items;
+    }
+
+    function renderAZ(){
+      const container = document.getElementById("az");
+      if(!container) return;
+      container.innerHTML = "";
+      const letters = "abcdefghijklmnopqrstuvwxyz".split("");
+      letters.forEach(l=>{
+        const btn = document.createElement("button");
+        btn.textContent = l.toUpperCase();
+        if(state.letter===l) btn.className = "active";
+        btn.onclick = ()=>{ state.letter = (state.letter===l ? "" : l); render(); };
+        container.appendChild(btn);
+      });
+      const clr = document.createElement("button");
+      clr.textContent = "•";
+      clr.title = "Clear";
+      clr.onclick = ()=>{ state.letter=""; render(); };
+      container.appendChild(clr);
+    }
+
+    function renderTags(){
+      const sel = document.getElementById("tagSel");
+      if(!sel) return;
+      const t = i18n[state.lang];
+      sel.innerHTML = "";
+      const all = document.createElement("option");
+      all.value = "";
+      all.textContent = t.allTags;
+      all.setAttribute("data-i","allTags");
+      sel.appendChild(all);
+      uniqueTags().forEach(tag=>{
+        const opt = document.createElement("option");
+        opt.value = tag;
+        opt.textContent = t.tags?.[tag] || tag;
+        if(state.tag===tag) opt.selected = true;
+        sel.appendChild(opt);
+      });
+    }
+
+    function renderNotice(msg, isError=false){
+      const n = document.getElementById("notice");
+      if (!n) return;
+      n.textContent = msg || "";
+      n.className = "notice" + (isError ? " error" : "");
+      n.style.display = msg ? "block" : "none";
+    }
+
+    function updateFooterDates(){
+      const el = document.getElementById("dataUpdated");
+      if (!el) return;
+      const t = i18n[state.lang];
+      const text = state.dataUpdatedISO ? t.dataLastUpdated(state.dataUpdatedISO) : "";
+      el.textContent = text;
+      el.style.display = text ? "inline" : "none";
+    }
+
+    function render(){
+      const t = i18n[state.lang];
+      renderAZ();
+      renderTags();
+
+      document.title = t.title;
+      const desc = document.querySelector('meta[name="description"]');
+      if (desc) desc.setAttribute("content", t.metaDesc);
+      document.documentElement.lang = t.htmlLang || "en";
+
+      const list = document.getElementById("list");
+      const countEl = document.getElementById("count");
+      if(!list || !countEl) return;
+
+      const items = filterData();
+      countEl.textContent = t.count(items.length);
+
+      const spacer = document.querySelector('.count + .spacer');
+      if (!spacer) {
+        const s = document.createElement('div');
+        s.className = 'spacer';
+        countEl.insertAdjacentElement('afterend', s);
+      }
+
+      list.innerHTML = "";
+
+      if(items.length===0){
+        const div = document.createElement("div");
+        div.className = "card";
+        div.style.textAlign = "center";
+        div.textContent = state.lang==="zh-Hant" ? "沒有結果" : state.lang==="zh-Hans" ? "没有结果" : "No results";
+        list.appendChild(div);
+        updateStructuredData(0);
+        updateFooterDates();
+        return;
+      }
+
+      items.forEach(item=>{
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const left = document.createElement("div");
+        const variantsNote = item.variants.some(v => stripWWW(v) !== item.base)
+          ? `<div class="small">Variants: ${item.variants.join(", ")}</div>` : "";
+
+        left.innerHTML = `
+          <div class="domain">${item.base}</div>
+          ${variantsNote}
+          <div class="small">${t.updated}: ${item.lastSeen || ""}</div>
+        `;
+
+        const right = document.createElement("div");
+        right.className = "tags";
+        (item.tags||[]).forEach(tag=>{
+          const span = document.createElement("span");
+          span.className = "tag" + (tag==="phishing"?" danger":"");
+          span.textContent = t.tags?.[tag] || tag;
+          right.appendChild(span);
+        });
+
+        const row = document.createElement("div");
+        row.className = "row";
+        row.appendChild(left);
+        row.appendChild(right);
+
+        card.appendChild(row);
+        list.appendChild(card);
+      });
+
+      updateStructuredData(items.length);
+      updateFooterDates();
+    }
+
+    function setLang(lang){
+      state.lang = ["en","zh-Hant","zh-Hans"].includes(lang) ? lang : "en";
+      const t = i18n[state.lang];
+
+      const setText = (sel, text) => { const el = document.querySelector(sel); if (el) el.textContent = text; };
+
+      setText('[data-i="tagline"]', t.tagline);
+      const searchEl = document.getElementById('search');
+      if (searchEl) searchEl.placeholder = t.searchPlaceholder;
+      setText('[data-i="filterLabel"]', t.filterTag);
+      setText('[data-i="allTags"]', t.allTags);
+      setText('[data-i="langLabel"]', t.language);
+      setText('[data-i="a2z"]', t.a2z);
+      setText('[data-i="searchLabel"]', t.searchLabel);
+      setText('[data-i="faqH"]', t.faqH);
+      setText('[data-i="faqP"]', t.faqP);
+
+      render();
+
+      const url = new URL(location.href);
+      url.searchParams.set("lang", state.lang);
+      history.replaceState({}, "", url.toString());
+    }
+
+    function mapJsonToRaw(jsonDomains){
+      if (!Array.isArray(jsonDomains)) return [];
+      return jsonDomains.map(d => {
+        if (typeof d === "string") {
+          const base = stripWWW(d);
+          return { domain: d.toLowerCase(), base, tags: ["phishing","dapp"], lastSeen: new Date().toISOString().slice(0,10) };
+        }
+        const domain = (d.domain || d.base || "").toLowerCase();
+        const base = (d.base && d.base.toLowerCase()) || stripWWW(domain);
+        const tags = Array.isArray(d.tags) && d.tags.length ? d.tags.map(String) : ["phishing","dapp"];
+        const lastSeen = d.lastSeen || new Date().toISOString().slice(0,10);
+        return { domain, base, tags, lastSeen };
+      }).filter(x => x.domain && x.base);
+    }
+
+    async function loadData(){
+      const t = i18n[state.lang];
+      renderNotice(t.fetching, false);
+      let lastModifiedISO = "";
+      try {
+        const res = await fetch("data.json", { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        const lm = res.headers.get("Last-Modified");
+        if (lm) {
+          const d = new Date(lm);
+          if (!isNaN(d.getTime())) lastModifiedISO = fmtDate(d);
+        }
+
+        const json = await res.json();
+        meta = json.meta || {};
+        rawData = mapJsonToRaw(json.domains);
+        if (!rawData.length) throw new Error("Empty domains in data.json");
+
+        const metaGen = meta.generatedAt || meta.updatedAt || meta.lastUpdated;
+        const chosen = metaGen ? fmtDate(metaGen) : (lastModifiedISO || fmtDate(new Date()));
+        state.dataUpdatedISO = chosen;
+
+        renderNotice("");
+      } catch (err) {
+        console.error("Failed to load data.json:", err);
+        rawData = seedDomains.map(d => ({
+          domain: d.toLowerCase(),
+          base: stripWWW(d),
+          tags: ["phishing","dapp"],
+          lastSeen: new Date().toISOString().slice(0,10)
+        }));
+        state.dataUpdatedISO = fmtDate(new Date());
+        renderNotice(i18n[state.lang].fetchFailed, true);
+      } finally {
+        render();
+      }
+    }
+
+    function updateStructuredData(count){
+      const existing = document.getElementById("ld-org");
+      if (existing) existing.remove();
+
+      const ld = {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "PhishWatch",
+        "url": "https://anti-phishing-dapps.github.io/",
+        "applicationCategory": "SecurityApplication",
+        "description": i18n[state.lang].metaDesc,
+        "inLanguage": state.lang,
+        "offers": { "@type":"Offer", "price":"0", "priceCurrency":"USD" },
+        "aggregateRating": { "@type":"AggregateRating", "ratingValue":"5.0", "reviewCount":"1" },
+        "interactionStatistic": {
+          "@type":"InteractionCounter",
+          "interactionType": { "@type":"FindAction" },
+          "userInteractionCount": String(count || 0)
+        }
+      };
+      const script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.id = "ld-org";
+      script.textContent = JSON.stringify(ld);
+      document.head.appendChild(script);
+    }
+
+    function init(){
+      const langSel = document.getElementById("langSel");
+      if (langSel){
+        langSel.value = ["en","zh-Hant","zh-Hans"].includes(state.lang) ? state.lang : "en";
+        langSel.onchange = e => { setLang(e.target.value); renderNotice(""); };
+      }
+
+      const search = document.getElementById("search");
+      const doSearch = () => { state.q = search.value; render(); };
+      if (search){
+        search.oninput = doSearch;
+        search.addEventListener("keydown", (e)=>{
+          if(e.key === "Enter"){ e.preventDefault(); doSearch(); }
+        });
+      }
+
+      const tagSel = document.getElementById("tagSel");
+      if(tagSel){
+        tagSel.onchange = e => { state.tag = e.target.value; render(); };
+      }
+
+      setLang(state.lang);
+
+      const footBrand = document.getElementById("footBrand");
+      if (footBrand) footBrand.textContent = `${YEAR} @ anti-phishing-dapps`;
+      const dataLink = document.getElementById("dataLink");
+      const robotsLink = document.getElementById("robotsLink");
+      const sitemapLink = document.getElementById("sitemapLink");
+      if (dataLink) dataLink.href = "data.json";
+      if (robotsLink) robotsLink.href = "robots.txt";
+      if (sitemapLink) sitemapLink.href = "sitemap.xml";
+
+      loadData();
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+</head>
+<body>
+  <a class="sr-only" href="#list">Skip to list</a>
+
+  <header>
+    <div class="wrap">
+      <div class="row">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">PW</div>
+          <h1>PhishWatch</h1>
+        </div>
+        <div class="langswitch">
+          <label for="langSel" class="muted" data-i="langLabel">Language</label>
+          <select id="langSel" aria-label="Language">
+            <option value="en">English</option>
+            <option value="zh-Hant">繁體中文</option>
+            <option value="zh-Hans">简体中文</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="muted" data-i="tagline">Public, searchable directory of confirmed phishing DApps and clone sites.</div>
+
+      <div class="controls" role="search">
+        <div class="search-row">
+          <div class="section-title muted" data-i="searchLabel">Search</div>
+          <input id="search" data-i="search" type="search" placeholder="Search domains, e.g. fuseeta or fuseeta.com" aria-label="Search domains" />
+        </div>
+
+        <div class="filters-row">
+          <div>
+            <div class="section-title muted" data-i="filterLabel">Tag filter</div>
+            <select id="tagSel" aria-label="Tag filter">
+              <option value="" data-i="allTags">All tags</option>
+            </select>
+          </div>
+          <div>
+            <div class="section-title muted" data-i="a2z">A–Z filter (by domain name)</div>
+            <div id="az" class="az" role="group" aria-label="A to Z filter"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section aria-live="polite" aria-atomic="true">
+      <div id="notice" class="notice" style="display:none;"></div>
+    </section>
+
+    <h2 data-i="faqH">About PhishWatch</h2>
+    <p class="muted" data-i="faqP">PhishWatch is a community-driven, multilingual blocklist of phishing DApps and clone sites. Use this tool to search, filter, and stay safer online.</p>
+
+    <div class="count" id="count">0 domains</div>
+    <div class="spacer"></div>
+    <div id="list" class="grid" role="list"></div>
+
+    <footer>
+      <div class="footer-row">
+        <span class="small">
+          <span id="footBrand"></span>
+          <span id="dataUpdated" class="small" style="margin-left:12px;"></span>
+        </span>
+        <nav class="footer-links small" aria-label="Resources">
+          <a id="dataLink" href="data.json" rel="nofollow">data.json</a>
+          <a id="robotsLink" href="robots.txt" rel="nofollow">robots.txt</a>
+          <a id="sitemapLink" href="sitemap.xml" rel="nofollow">sitemap.xml</a>
+        </nav>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
