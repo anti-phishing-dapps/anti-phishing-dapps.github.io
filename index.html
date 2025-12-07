@@ -9,6 +9,7 @@
   <meta name="keywords" content="phishing, dapp, web3 security, scam sites, malicious domains, crypto security, blocklist, domain blacklist" />
 
   <link rel="icon" href="./favicon.ico" sizes="any">
+
   <link rel="canonical" href="https://anti-phishing-dapps.github.io/" />
   <link rel="alternate" hreflang="en" href="https://anti-phishing-dapps.github.io/?lang=en" />
   <link rel="alternate" hreflang="zh-Hant" href="https://anti-phishing-dapps.github.io/?lang=zh-Hant" />
@@ -142,18 +143,23 @@
 
     const YEAR = new Date().getFullYear();
 
-    // Fallback seed domains
-    const seedDomains = [
-      "www.fusehe.com","www.fusehk.com","www.fusehs.com","www.fuseht.com","www.fusehu.com","www.fusehv.com","www.fusehx.com",
-      "www.fusepb.com","www.fusepe.com","www.fusepg.com","www.fuseph.com","www.fusepn.com","www.fusept.com","www.fusepu.com",
-      "www.fusepw.com","www.fusepy.com","www.fusepz.com","www.fuseua.com","www.fuseun.com","www.fuseuw.com","www.fuseuz.com",
-      "www.fuseeta.com","www.fuseetc.com","www.fuseetd.com","www.fuseetf.com","www.fuseeth.com","www.fuseets.com"
+    const seedBases = [
+      "fusehe.com","fusehk.com","fusehs.com","fuseht.com","fusehu.com","fusehv.com","fusehx.com",
+      "fusepb.com","fusepe.com","fusepg.com","fuseph.com","fusepn.com","fusept.com","fusepu.com",
+      "fusepw.com","fusepy.com","fusepz.com","fuseua.com","fuseun.com","fuseuw.com","fuseuz.com",
+      "fuseeta.com","fuseetc.com","fuseetd.com","fuseetf.com","fuseeth.com","fuseets.com"
     ];
 
-    function stripWWW(host){
-      return host.toLowerCase().replace(/^https?:\/\//,'').replace(/^www\./,'');
+    function stripWWW(input){
+      return String(input||"")
+        .trim()
+        .toLowerCase()
+        .replace(/^https?:\/\//, "")
+        .replace(/^www\./, "")
+        .replace(/\/+$/, "");
     }
-    function normalizeQuery(q){ return q.trim().toLowerCase(); }
+
+    function normalizeQuery(q){ return stripWWW(q); }
     function fmtDate(d){
       try{
         const date = typeof d === "string" ? new Date(d) : d;
@@ -163,13 +169,18 @@
     }
 
     const state = {
-      lang: (new URL(location.href).searchParams.get("lang")) || ((navigator.language||"en").startsWith("zh") ? ((navigator.language||"").includes("Hans") ? "zh-Hans" : "zh-Hant") : "en"),
+      lang: (new URL(location.href).searchParams.get("lang")) ||
+            ((navigator.language||"en").startsWith("zh")
+              ? ((navigator.language||"").includes("Hans") ? "zh-Hans" : "zh-Hant")
+              : "en"),
       q: "",
       tag: "",
       letter: "",
-      dataUpdatedISO: ""
+      dataUpdatedISO: "",
+      lastQueryHadWWW: false
     };
-    let rawData = [];
+
+    let rawData = []; // array of { base, tags, lastSeen }
     let meta = {};
 
     function uniqueByBase(items){
@@ -177,9 +188,8 @@
       items.forEach(it=>{
         const key = it.base;
         if(!map.has(key)){
-          map.set(key, { ...it, variants: [it.domain] });
-        } else {
-          map.get(key).variants.push(it.domain);
+          const variants = [it.base, `www.${it.base}`];
+          map.set(key, { ...it, variants });
         }
       });
       return Array.from(map.values()).sort((a,b)=> a.base.localeCompare(b.base));
@@ -194,15 +204,13 @@
     function filterData(){
       const q = normalizeQuery(state.q);
       let items = uniqueByBase(rawData);
-
       items = items.filter(item => {
         if (state.letter && item.base[0] !== state.letter) return false;
         if (state.tag && !(item.tags||[]).includes(state.tag)) return false;
         if (!q) return true;
         if (item.base.includes(q)) return true;
-        return item.variants.some(v => v.includes(q));
+        return item.variants.some(v => stripWWW(v).includes(q));
       });
-
       return items;
     }
 
@@ -303,8 +311,9 @@
         card.className = "card";
 
         const left = document.createElement("div");
-        const variantsNote = item.variants.some(v => stripWWW(v) !== item.base)
-          ? `<div class="small">Variants: ${item.variants.join(", ")}</div>` : "";
+
+        const showVariants = state.lastQueryHadWWW;
+        const variantsNote = showVariants ? `<div class="small">Variants: ${item.variants.join(", ")}</div>` : "";
 
         left.innerHTML = `
           <div class="domain">${item.base}</div>
@@ -358,19 +367,26 @@
       history.replaceState({}, "", url.toString());
     }
 
+    // Compact data.json support:
+    // - { meta: {...}, domains: [ { b, t, s }, "example.com", ... ] }
+    // - Also accepts prior verbose shapes for backward compatibility.
     function mapJsonToRaw(jsonDomains){
       if (!Array.isArray(jsonDomains)) return [];
       return jsonDomains.map(d => {
         if (typeof d === "string") {
           const base = stripWWW(d);
-          return { domain: d.toLowerCase(), base, tags: ["phishing","dapp"], lastSeen: new Date().toISOString().slice(0,10) };
+          return { base, tags: ["phishing","dapp"], lastSeen: new Date().toISOString().slice(0,10) };
         }
-        const domain = (d.domain || d.base || "").toLowerCase();
-        const base = (d.base && d.base.toLowerCase()) || stripWWW(domain);
-        const tags = Array.isArray(d.tags) && d.tags.length ? d.tags.map(String) : ["phishing","dapp"];
-        const lastSeen = d.lastSeen || new Date().toISOString().slice(0,10);
-        return { domain, base, tags, lastSeen };
-      }).filter(x => x.domain && x.base);
+        if (typeof d === "object" && d !== null) {
+          const base = stripWWW(d.b || d.base || d.domain || "");
+          const tags = Array.isArray(d.t) ? d.t.map(String)
+                     : Array.isArray(d.tags) && d.tags.length ? d.tags.map(String)
+                     : ["phishing","dapp"];
+          const lastSeen = d.s || d.lastSeen || new Date().toISOString().slice(0,10);
+          return { base, tags, lastSeen };
+        }
+        return null;
+      }).filter(x => x && x.base);
     }
 
     async function loadData(){
@@ -378,7 +394,7 @@
       renderNotice(t.fetching, false);
       let lastModifiedISO = "";
       try {
-        const res = await fetch("data.json", { cache: "no-store" });
+        const res = await fetch("data.json", { cache: "no-store", credentials: "omit", redirect: "follow" });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
         const lm = res.headers.get("Last-Modified");
@@ -389,7 +405,8 @@
 
         const json = await res.json();
         meta = json.meta || {};
-        rawData = mapJsonToRaw(json.domains);
+        const payload = Array.isArray(json) ? json : json.domains;
+        rawData = mapJsonToRaw(payload);
         if (!rawData.length) throw new Error("Empty domains in data.json");
 
         const metaGen = meta.generatedAt || meta.updatedAt || meta.lastUpdated;
@@ -399,9 +416,8 @@
         renderNotice("");
       } catch (err) {
         console.error("Failed to load data.json:", err);
-        rawData = seedDomains.map(d => ({
-          domain: d.toLowerCase(),
-          base: stripWWW(d),
+        rawData = seedBases.map(b => ({
+          base: stripWWW(b),
           tags: ["phishing","dapp"],
           lastSeen: new Date().toISOString().slice(0,10)
         }));
@@ -447,7 +463,12 @@
       }
 
       const search = document.getElementById("search");
-      const doSearch = () => { state.q = search.value; render(); };
+      const doSearch = () => {
+        const raw = search.value || "";
+        state.lastQueryHadWWW = /^https?:\/\//i.test(raw) || /^www\./i.test(raw);
+        state.q = raw;
+        render();
+      };
       if (search){
         search.oninput = doSearch;
         search.addEventListener("keydown", (e)=>{
