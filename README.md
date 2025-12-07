@@ -1,30 +1,39 @@
-# PhishWatch – Phishing DApp Directory
+# PhishWatch
 
-PhishWatch is a lightweight, multilingual, client‑side website that lists confirmed phishing DApps and clone sites. It loads a public data.json, lets you search, filter by tags, and view alphabet filters, and displays when the data was last updated.
+Public, searchable directory of confirmed phishing DApps and clone sites. Live site: https://anti-phishing-dapps.github.io/
 
-Live site:
-- https://anti-phishing-dapps.github.io/
+- Client‑side only (static HTML, CSS, JS)
+- Mobile‑first, accessible, multilingual (English, 繁體中文, 简体中文)
+- Consumes a compact data.json schema for minimal size
+- Zero build step; suitable for GitHub Pages
 
-## Features
+## Contents
 
-- Client-side search over known malicious Web3 domains
-- Tag filter and A–Z filter (by base domain)
-- Multilingual UI: English, 繁體中文, 简体中文
-- Accessibility-minded (keyboard and screen-reader friendly)
-- “Data last updated” shown in the footer, derived from data.json
+- index.html — the app (search, tag filter, A–Z, i18n)
+- data.json — blocklist data (compact)
+- favicon.ico — site icon
+- robots.txt, sitemap.xml — optional SEO files
 
-## Data source
+## Getting started
 
-The site fetches a JSON file at runtime:
+- Local preview: open index.html in a modern browser or serve with a static server.
+  - Example: `npx serve .` or `python3 -m http.server 8080`
+- Data lives in `data.json`. Edit and commit; the app fetches it at runtime with `cache: no-store`.
 
-- Path: data.json
-- Shape:
-  ```json
-  {
-    "meta": {
-      "generatedAt": "2025-01-15T12:34:56Z"
-    },
-    "domains": [
-      { "domain": "www.fuseeta.com", "base": "fuseeta.com", "tags": ["phishing","dapp"], "lastSeen": "2025-01-15" }
-    ]
-  }
+## Data schema (compact)
+
+The app supports a compact shape to reduce file size. Keys are short and optional fields have safe defaults.
+
+Top-level:
+```json
+{
+  "meta": {
+    "name": "PhishWatch",
+    "description": "Public, searchable directory of confirmed phishing DApps and clone sites.",
+    "version": "1.0.0",
+    "generatedAt": "2025-12-06"
+  },
+  "domains": [
+    { "b": "fusehe.com", "t": ["phishing","dapp"], "s": "2025-12-06" }
+  ]
+}
