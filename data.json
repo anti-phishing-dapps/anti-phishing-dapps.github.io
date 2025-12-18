@@ -3,6 +3,7 @@
   "domains": [
     { "b": "fusehe.com", "t": ["phishing","dapp"], "s": "2025-12-06" },
     { "b": "fusehk.com", "t": ["phishing","dapp"], "s": "2025-12-06" },
+    { "b": "fusehkdefi.com", "t": ["phishing","dapp"], "s": "2025-12-15" },
     { "b": "fusehs.com", "t": ["phishing","dapp"], "s": "2025-12-06" },
     { "b": "fuseht.com", "t": ["phishing","dapp"], "s": "2025-12-06" },
     { "b": "fusehu.com", "t": ["phishing","dapp"], "s": "2025-12-06" },
