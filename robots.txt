@@ -1,5 +1,3 @@
-# robots.txt for PhishWatch
-Sitemap: https://anti-phishing-dapps.github.io/sitemap.xml
 User-agent: *
-Disallow:
-
+Allow: /
+Sitemap: https://anti-phishing-dapps.github.io/sitemap.xml
