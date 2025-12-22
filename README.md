@@ -1,6 +1,6 @@
 # PhishWatch
 
-Public, searchable directory of confirmed phishing DApps and clone sites. Live site: https://anti-phishing-dapps.github.io/
+Public, searchable directory of confirmed fuse phishing DApps and clone sites. Live site: https://anti-phishing-dapps.github.io/
 
 - Client‑side only (static HTML, CSS, JS)
 - Mobile‑first, accessible, multilingual (English, 繁體中文, 简体中文)
@@ -29,7 +29,7 @@ Top-level:
 {
   "meta": {
     "name": "PhishWatch",
-    "description": "Public, searchable directory of confirmed phishing DApps and clone sites.",
+    "description": "Public, searchable directory of confirmed fuse phishing DApps and clone sites.",
     "version": "1.0.0",
     "generatedAt": "2025-12-06"
   },

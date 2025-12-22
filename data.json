@@ -1,5 +1,5 @@
 {
-  "meta": { "name": "PhishWatch", "description": "Public, searchable directory of confirmed phishing DApps and clone sites.", "version": "1.0.0", "generatedAt": "2025-12-06" },
+  "meta": { "name": "PhishWatch", "description": "Public, searchable directory of confirmed phishing DApps and clone sites.", "version": "1.0.1", "generatedAt": "2025-12-15" },
   "domains": [
     { "b": "fusehe.com", "t": ["phishing","dapp"], "s": "2025-12-06" },
     { "b": "fusehk.com", "t": ["phishing","dapp"], "s": "2025-12-06" },
@@ -21,6 +21,7 @@
     { "b": "fusepz.com", "t": ["phishing","dapp"], "s": "2025-12-06" },
     { "b": "fuseua.com", "t": ["phishing","dapp"], "s": "2025-12-06" },
     { "b": "fuseun.com", "t": ["phishing","dapp"], "s": "2025-12-06" },
+    { "b": "fuseusdc.com", "t": ["phishing","dapp"], "s": "2025-12-15" },
     { "b": "fuseuw.com", "t": ["phishing","dapp"], "s": "2025-12-06" },
     { "b": "fuseuz.com", "t": ["phishing","dapp"], "s": "2025-12-06" },
     { "b": "fuseerc.com", "t": ["phishing","dapp"], "s": "2025-12-15" },
