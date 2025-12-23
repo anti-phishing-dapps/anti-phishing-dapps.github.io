@@ -1,6 +1,7 @@
 {
-  "meta": { "name": "PhishWatch", "description": "Public, searchable directory of confirmed phishing DApps and clone sites.", "version": "1.0.1", "generatedAt": "2025-12-15" },
+  "meta": { "name": "PhishWatch", "description": "Public, searchable directory of confirmed phishing DApps and clone sites.", "version": "1.0.1", "generatedAt": "2025-12-20" },
   "domains": [
+    { "b": "fusedefi.com", "t": ["phishing","dapp"], "s": "2025-12-06" },
     { "b": "fusehe.com", "t": ["phishing","dapp"], "s": "2025-12-06" },
     { "b": "fusehk.com", "t": ["phishing","dapp"], "s": "2025-12-06" },
     { "b": "fusehkdefi.com", "t": ["phishing","dapp"], "s": "2025-12-15" },
