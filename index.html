@@ -69,26 +69,56 @@
     footer{border-top:1px solid var(--border);margin-top:20px;padding:16px 0}
     .langswitch{display:flex;gap:8px;align-items:center;white-space:nowrap}
     .small{font-size:12px;color:var(--muted)}
-    .footer-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
     .footer-links{display:flex;gap:12px;flex-wrap:wrap}
     .section-title{margin-bottom:6px}
     .notice{padding:8px 12px;border:1px dashed var(--border);border-radius:10px;background:#0f1729;color:var(--muted);margin:10px 0}
     .error{color:#ffb4b4}
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;clip:rect(0,0,0,0);overflow:hidden;border:0;white-space:nowrap}
 
-    /* ClustrMaps: give the widget room to render */
-    .clustrmaps-wrap{
-      display:block;
-      width: 220px;       /* gives a predictable area; ClustrMaps will fit inside */
-      max-width: 100%;
-      min-height: 140px;  /* prevents collapse if it renders an iframe/canvas */
-      overflow: visible;
+    /* === Footer layout (left: meta one-line | middle: links | right: ClustrMaps 248px) === */
+    .footer-row{
+      display:grid;
+      grid-template-columns: 1fr 1fr 248px; /* meta | links | map */
+      align-items:center;
+      gap:14px;
     }
+
+    /* One-line meta on the LEFT */
+    .footer-meta{
+      justify-self:start;
+      text-align:left;
+      display:flex;
+      flex-direction:row;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap; /* wrap only if screen is very narrow */
+    }
+
+    .footer-links{
+      justify-self:center;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .clustrmaps-wrap{
+      width:248px;
+      max-width:248px;
+      justify-self:end;
+      min-height:140px;
+      overflow:visible;
+    }
+
     @media(max-width:679px){
-      .clustrmaps-wrap{
-        width: 100%;
-        min-height: 140px;
+      .footer-row{
+        grid-template-columns: 1fr;
+        justify-items:center;
+        text-align:center;
       }
+      .footer-meta{justify-self:center;text-align:center;}
+      .footer-links{justify-self:center;}
+      .clustrmaps-wrap{justify-self:center;}
     }
   </style>
 
@@ -191,7 +221,7 @@
       q: "",
       tag: "",
       letter: "",
-      dataUpdatedISO: "",
+      dataUpdatedISO: "2025-12-31", /* fixed display as requested */
       lastQueryHadWWW: false
     };
 
@@ -282,11 +312,6 @@
       const text = state.dataUpdatedISO ? t.dataLastUpdated(state.dataUpdatedISO) : "";
       el.textContent = text;
       el.style.display = text ? "inline" : "none";
-    }
-
-    function domainHref(base){
-      const b = stripWWW(base);
-      return `https://www.${b}`;
     }
 
     function render(){
@@ -394,27 +419,14 @@
 
     async function loadData(){
       renderNotice(i18n[state.lang].fetching, false);
-      let lastModifiedISO = "";
       try {
         const res = await fetch("data.json", { cache: "no-store", credentials: "omit", redirect: "follow" });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-        const lm = res.headers.get("Last-Modified");
-        if (lm) {
-          const d = new Date(lm);
-          if (!isNaN(d.getTime())) lastModifiedISO = fmtDate(d);
-        }
-
         const json = await res.json();
         meta = json.meta || {};
         const payload = Array.isArray(json) ? json : json.domains;
         rawData = mapJsonToRaw(payload);
         if (!rawData.length) throw new Error("Empty domains in data.json");
-
-        const metaGen = meta.generatedAt || meta.updatedAt || meta.lastUpdated;
-        const chosen = metaGen ? fmtDate(metaGen) : (lastModifiedISO || fmtDate(new Date()));
-        state.dataUpdatedISO = chosen;
-
         renderNotice("");
       } catch (err) {
         console.error("Failed to load data.json:", err);
@@ -423,11 +435,15 @@
           tags: ["phishing","dapp"],
           lastSeen: new Date().toISOString().slice(0,10)
         }));
-        state.dataUpdatedISO = fmtDate(new Date());
         renderNotice(i18n[state.lang].fetchFailed, true);
       } finally {
         render();
       }
+    }
+
+    function domainHref(base){
+      const b = stripWWW(base);
+      return `https://www.${b}`;
     }
 
     function init(){
@@ -460,9 +476,10 @@
 
       const footBrand = document.getElementById("footBrand");
       if (footBrand) footBrand.textContent = `${YEAR} @ anti-phishing-dapps`;
+      updateFooterDates();
+
       loadData();
 
-      // Optional: simple runtime debug (check console for script load errors)
       window.addEventListener("error", (e) => {
         if (String(e?.filename || "").includes("clustrmaps")) {
           console.warn("ClustrMaps script error:", e);
@@ -531,18 +548,20 @@
 
     <footer>
       <div class="footer-row">
-        <span class="small">
+        <!-- Left: one-line meta -->
+        <div class="footer-meta small">
           <span id="footBrand"></span>
-          <span id="dataUpdated" class="small" style="margin-left:12px;"></span>
-        </span>
+          <span id="dataUpdated"></span>
+        </div>
 
+        <!-- Middle: footer links -->
         <nav class="footer-links small" aria-label="Resources">
           <a id="dataLink" href="data.json" rel="nofollow">data.json</a>
           <a id="robotsLink" href="robots.txt" rel="nofollow">robots.txt</a>
           <a id="sitemapLink" href="sitemap.xml" rel="nofollow">sitemap.xml</a>
         </nav>
 
-        <!-- ClustrMaps Visitor Map/Counter -->
+        <!-- Right: ClustrMaps (248px block) -->
         <div class="clustrmaps-wrap" aria-label="ClustrMaps visitor map">
           <script
             type="text/javascript"
