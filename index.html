@@ -75,6 +75,12 @@
     .notice{padding:8px 12px;border:1px dashed var(--border);border-radius:10px;background:#0f1729;color:var(--muted);margin:10px 0}
     .error{color:#ffb4b4}
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;clip:rect(0,0,0,0);overflow:hidden;border:0;white-space:nowrap}
+
+    /* ClustrMaps container: keep it neat in the footer */
+    .clustrmaps-wrap{display:flex;align-items:center;justify-content:flex-end}
+    @media(max-width:679px){
+      .clustrmaps-wrap{justify-content:flex-start;width:100%}
+    }
   </style>
 
   <script>
@@ -269,6 +275,12 @@
       el.style.display = text ? "inline" : "none";
     }
 
+    // Make domains clickable using https://www.{domain}
+    function domainHref(base){
+      const b = stripWWW(base);
+      return `https://www.${b}`;
+    }
+
     function render(){
       const t = i18n[state.lang];
       renderAZ();
@@ -316,7 +328,9 @@
         const variantsNote = showVariants ? `<div class="small">Variants: ${item.variants.join(", ")}</div>` : "";
 
         left.innerHTML = `
-          <div class="domain">${item.base}</div>
+          <div class="domain">
+            <a href="${domainHref(item.base)}" target="_blank" rel="noopener noreferrer">${item.base}</a>
+          </div>
           ${variantsNote}
           <div class="small">${t.updated}: ${item.lastSeen || ""}</div>
         `;
@@ -565,6 +579,11 @@
           <a id="robotsLink" href="robots.txt" rel="nofollow">robots.txt</a>
           <a id="sitemapLink" href="sitemap.xml" rel="nofollow">sitemap.xml</a>
         </nav>
+
+        <!-- ClustrMaps Visitor Counter (LustrMaps reference you provided) -->
+        <div class="clustrmaps-wrap small" aria-label="Visitor counter">
+          <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=lxfrhEzBpfaJt2Teufi_vhcjWVPv3G7ZUldptwfJkqc&cl=ffffff&w=a"></script>
+        </div>
       </div>
     </footer>
   </main>
