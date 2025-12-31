@@ -76,10 +76,19 @@
     .error{color:#ffb4b4}
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;clip:rect(0,0,0,0);overflow:hidden;border:0;white-space:nowrap}
 
-    /* ClustrMaps container: keep it neat in the footer */
-    .clustrmaps-wrap{display:flex;align-items:center;justify-content:flex-end}
+    /* ClustrMaps: give the widget room to render */
+    .clustrmaps-wrap{
+      display:block;
+      width: 220px;       /* gives a predictable area; ClustrMaps will fit inside */
+      max-width: 100%;
+      min-height: 140px;  /* prevents collapse if it renders an iframe/canvas */
+      overflow: visible;
+    }
     @media(max-width:679px){
-      .clustrmaps-wrap{justify-content:flex-start;width:100%}
+      .clustrmaps-wrap{
+        width: 100%;
+        min-height: 140px;
+      }
     }
   </style>
 
@@ -186,7 +195,7 @@
       lastQueryHadWWW: false
     };
 
-    let rawData = []; // array of { base, tags, lastSeen }
+    let rawData = [];
     let meta = {};
 
     function uniqueByBase(items){
@@ -275,7 +284,6 @@
       el.style.display = text ? "inline" : "none";
     }
 
-    // Make domains clickable using https://www.{domain}
     function domainHref(base){
       const b = stripWWW(base);
       return `https://www.${b}`;
@@ -298,13 +306,6 @@
       const items = filterData();
       countEl.textContent = t.count(items.length);
 
-      const spacer = document.querySelector('.count + .spacer');
-      if (!spacer) {
-        const s = document.createElement('div');
-        s.className = 'spacer';
-        countEl.insertAdjacentElement('afterend', s);
-      }
-
       list.innerHTML = "";
 
       if(items.length===0){
@@ -313,7 +314,6 @@
         div.style.textAlign = "center";
         div.textContent = state.lang==="zh-Hant" ? "沒有結果" : state.lang==="zh-Hans" ? "没有结果" : "No results";
         list.appendChild(div);
-        updateStructuredData(0);
         updateFooterDates();
         return;
       }
@@ -322,38 +322,30 @@
         const card = document.createElement("div");
         card.className = "card";
 
-        const left = document.createElement("div");
-
         const showVariants = state.lastQueryHadWWW;
         const variantsNote = showVariants ? `<div class="small">Variants: ${item.variants.join(", ")}</div>` : "";
 
-        left.innerHTML = `
-          <div class="domain">
-            <a href="${domainHref(item.base)}" target="_blank" rel="noopener noreferrer">${item.base}</a>
+        card.innerHTML = `
+          <div class="row">
+            <div>
+              <div class="domain">
+                <a href="${domainHref(item.base)}" target="_blank" rel="noopener noreferrer">${item.base}</a>
+              </div>
+              ${variantsNote}
+              <div class="small">${t.updated}: ${item.lastSeen || ""}</div>
+            </div>
+            <div class="tags">
+              ${(item.tags||[]).map(tag => {
+                const label = t.tags?.[tag] || tag;
+                const extra = tag==="phishing" ? " danger" : "";
+                return `<span class="tag${extra}">${label}</span>`;
+              }).join("")}
+            </div>
           </div>
-          ${variantsNote}
-          <div class="small">${t.updated}: ${item.lastSeen || ""}</div>
         `;
-
-        const right = document.createElement("div");
-        right.className = "tags";
-        (item.tags||[]).forEach(tag=>{
-          const span = document.createElement("span");
-          span.className = "tag" + (tag==="phishing"?" danger":"");
-          span.textContent = t.tags?.[tag] || tag;
-          right.appendChild(span);
-        });
-
-        const row = document.createElement("div");
-        row.className = "row";
-        row.appendChild(left);
-        row.appendChild(right);
-
-        card.appendChild(row);
         list.appendChild(card);
       });
 
-      updateStructuredData(items.length);
       updateFooterDates();
     }
 
@@ -381,9 +373,6 @@
       history.replaceState({}, "", url.toString());
     }
 
-    // Compact data.json support:
-    // - { meta: {...}, domains: [ { b, t, s }, "example.com", ... ] }
-    // - Also accepts prior verbose shapes for backward compatibility.
     function mapJsonToRaw(jsonDomains){
       if (!Array.isArray(jsonDomains)) return [];
       return jsonDomains.map(d => {
@@ -404,8 +393,7 @@
     }
 
     async function loadData(){
-      const t = i18n[state.lang];
-      renderNotice(t.fetching, false);
+      renderNotice(i18n[state.lang].fetching, false);
       let lastModifiedISO = "";
       try {
         const res = await fetch("data.json", { cache: "no-store", credentials: "omit", redirect: "follow" });
@@ -442,33 +430,6 @@
       }
     }
 
-    function updateStructuredData(count){
-      const existing = document.getElementById("ld-org");
-      if (existing) existing.remove();
-
-      const ld = {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "PhishWatch",
-        "url": "https://anti-phishing-dapps.github.io/",
-        "applicationCategory": "SecurityApplication",
-        "description": i18n[state.lang].metaDesc,
-        "inLanguage": state.lang,
-        "offers": { "@type":"Offer", "price":"0", "priceCurrency":"USD" },
-        "aggregateRating": { "@type":"AggregateRating", "ratingValue":"5.0", "reviewCount":"1" },
-        "interactionStatistic": {
-          "@type":"InteractionCounter",
-          "interactionType": { "@type":"FindAction" },
-          "userInteractionCount": String(count || 0)
-        }
-      };
-      const script = document.createElement("script");
-      script.type = "application/ld+json";
-      script.id = "ld-org";
-      script.textContent = JSON.stringify(ld);
-      document.head.appendChild(script);
-    }
-
     function init(){
       const langSel = document.getElementById("langSel");
       if (langSel){
@@ -499,14 +460,14 @@
 
       const footBrand = document.getElementById("footBrand");
       if (footBrand) footBrand.textContent = `${YEAR} @ anti-phishing-dapps`;
-      const dataLink = document.getElementById("dataLink");
-      const robotsLink = document.getElementById("robotsLink");
-      const sitemapLink = document.getElementById("sitemapLink");
-      if (dataLink) dataLink.href = "data.json";
-      if (robotsLink) robotsLink.href = "robots.txt";
-      if (sitemapLink) sitemapLink.href = "sitemap.xml";
-
       loadData();
+
+      // Optional: simple runtime debug (check console for script load errors)
+      window.addEventListener("error", (e) => {
+        if (String(e?.filename || "").includes("clustrmaps")) {
+          console.warn("ClustrMaps script error:", e);
+        }
+      });
     }
 
     document.addEventListener("DOMContentLoaded", init);
@@ -537,7 +498,7 @@
       <div class="controls" role="search">
         <div class="search-row">
           <div class="section-title muted" data-i="searchLabel">Search</div>
-          <input id="search" data-i="search" type="search" placeholder="Search domains, e.g. fuseeta or fuseeta.com" aria-label="Search domains" />
+          <input id="search" type="search" placeholder="Search domains, e.g. fuseeta or fuseeta.com" aria-label="Search domains" />
         </div>
 
         <div class="filters-row">
@@ -574,15 +535,25 @@
           <span id="footBrand"></span>
           <span id="dataUpdated" class="small" style="margin-left:12px;"></span>
         </span>
+
         <nav class="footer-links small" aria-label="Resources">
           <a id="dataLink" href="data.json" rel="nofollow">data.json</a>
           <a id="robotsLink" href="robots.txt" rel="nofollow">robots.txt</a>
           <a id="sitemapLink" href="sitemap.xml" rel="nofollow">sitemap.xml</a>
         </nav>
 
-        <!-- ClustrMaps Visitor Counter (LustrMaps reference you provided) -->
-        <div class="clustrmaps-wrap small" aria-label="Visitor counter">
-          <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=lxfrhEzBpfaJt2Teufi_vhcjWVPv3G7ZUldptwfJkqc&cl=ffffff&w=a"></script>
+        <!-- ClustrMaps Visitor Map/Counter -->
+        <div class="clustrmaps-wrap" aria-label="ClustrMaps visitor map">
+          <script
+            type="text/javascript"
+            id="clustrmaps"
+            src="https://clustrmaps.com/map_v2.js?d=lxfrhEzBpfaJt2Teufi_vhcjWVPv3G7ZUldptwfJkqc&cl=ffffff&w=a">
+          </script>
+          <noscript>
+            <div class="small">
+              Visitor map requires JavaScript. If you use an ad/content blocker, it may prevent ClustrMaps from loading.
+            </div>
+          </noscript>
         </div>
       </div>
     </footer>
