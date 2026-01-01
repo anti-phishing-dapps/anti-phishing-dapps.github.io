@@ -15,10 +15,13 @@
     { "b": "babyswapre.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
     { "b": "babyswaprs.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
     { "b": "babyswapsa.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
+    { "b": "babyswapse.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
     { "b": "babyswapsw.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
     { "b": "babyswapua.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
     { "b": "babyswapub.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
     { "b": "babyswapud.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
+
+    { "b": "bkdzg.top", "t": ["phishing", "dapp"], "s": "2025-12-31" },
 
     { "b": "cianerc.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
     { "b": "cianeth.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
@@ -77,6 +80,7 @@
 
     { "b": "jamiidefi.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
 
+    { "b": "rocketerct.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
     { "b": "rocketde.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
     { "b": "rocketud.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
     { "b": "rocketwv.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
@@ -85,6 +89,8 @@
     { "b": "smardexeth.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
     { "b": "smardexfin.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
     { "b": "smardexweb.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
+
+    { "b": "sparkeths.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
 
     { "b": "stableha.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
     { "b": "stablehf.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
@@ -109,8 +115,11 @@
     { "b": "turtleta.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
     { "b": "turtlets.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
 
+    { "b": "urbneddefi.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
+
     { "b": "vnxerc.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
     { "b": "vnxeth.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
+    { "b": "vnxwallet.com", "t": ["phishing", "dapp"], "s": "2025-12-31" },
 
     { "b": "waavef.com", "t": ["phishing", "dapp"], "s": "2025-12-31" }
   ]
