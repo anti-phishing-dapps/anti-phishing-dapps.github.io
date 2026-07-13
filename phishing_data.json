@@ -3,7 +3,7 @@
     "name": "PhishWatch",
     "description": "Public, searchable directory of confirmed phishing DApps and clone sites. Blocklist of Malicious Web3 Domains.",
     "version": "1.1.0",
-    "generatedAt": "2026-07-11"
+    "generatedAt": "2026-07-13"
   },
   "domains": [
     {
@@ -36,7 +36,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -192,6 +192,15 @@
       "s": "2025-12-31"
     },
     {
+      "b": "ercaave.com",
+      "t": [
+        "phishing",
+        "dapp"
+      ],
+      "s": "2026-07-13",
+      "st": "active"
+    },
+    {
       "b": "ercsuperlend.com",
       "t": [
         "phishing",
@@ -208,6 +217,24 @@
       "s": "2025-12-31"
     },
     {
+      "b": "eulererc.com",
+      "t": [
+        "phishing",
+        "dapp"
+      ],
+      "s": "2026-07-13",
+      "st": "active"
+    },
+    {
+      "b": "eulereth.com",
+      "t": [
+        "phishing",
+        "dapp"
+      ],
+      "s": "2026-07-13",
+      "st": "active"
+    },
+    {
       "b": "finsuperlend.com",
       "t": [
         "phishing",
@@ -221,7 +248,8 @@
         "phishing",
         "dapp"
       ],
-      "s": "2025-12-06"
+      "s": "2026-07-13",
+      "st": "paused"
     },
     {
       "b": "fusedz.com",
@@ -312,7 +340,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "paused"
     },
     {
@@ -474,7 +502,8 @@
         "phishing",
         "dapp"
       ],
-      "s": "2025-12-15"
+      "s": "2026-07-13",
+      "st": "active"
     },
     {
       "b": "fuseuw.com",
@@ -540,7 +569,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -549,7 +578,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -558,7 +587,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -567,7 +596,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -576,7 +605,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -585,7 +614,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -594,7 +623,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -603,7 +632,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -612,7 +641,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -621,7 +650,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -630,7 +659,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -639,7 +668,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -648,7 +677,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -657,7 +686,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -666,7 +695,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -675,7 +704,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -684,7 +713,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -693,7 +722,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -702,7 +731,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -711,7 +740,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -720,7 +749,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -729,7 +758,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -738,7 +767,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -747,7 +776,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -756,7 +785,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -765,7 +794,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -774,7 +803,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -783,7 +812,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -792,7 +821,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -801,7 +830,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -810,7 +839,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -819,7 +848,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -828,7 +857,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -837,7 +866,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -846,7 +875,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -855,7 +884,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -864,7 +893,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -873,7 +902,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -882,7 +911,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -891,7 +920,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -900,7 +929,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -909,7 +938,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -918,7 +947,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -927,7 +956,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -936,7 +965,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -945,7 +974,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -954,7 +983,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -963,7 +992,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -973,6 +1002,60 @@
         "dapp"
       ],
       "s": "2025-12-31"
+    },
+    {
+      "b": "kimaerc.com",
+      "t": [
+        "phishing",
+        "dapp"
+      ],
+      "s": "2026-07-13",
+      "st": "active"
+    },
+    {
+      "b": "kimaeth.com",
+      "t": [
+        "phishing",
+        "dapp"
+      ],
+      "s": "2026-07-13",
+      "st": "active"
+    },
+    {
+      "b": "mesomerc.com",
+      "t": [
+        "phishing",
+        "dapp"
+      ],
+      "s": "2026-07-13",
+      "st": "active"
+    },
+    {
+      "b": "mesometh.com",
+      "t": [
+        "phishing",
+        "dapp"
+      ],
+      "s": "2026-07-13",
+      "st": "active"
+    },
+    {
+      "b": "mesomfin.com",
+      "t": [
+        "phishing",
+        "dapp"
+      ],
+      "s": "2026-07-13",
+      "st": "active"
+    },
+    {
+      "b": "moneyfidefi.com",
+      "t": [
+        "phishing",
+        "dapp"
+      ],
+      "s": "2026-07-13",
+      "st": "active"
     },
     {
       "b": "rocketde.com",
@@ -989,7 +1072,8 @@
         "phishing",
         "dapp"
       ],
-      "s": "2025-12-31"
+      "s": "2026-07-13",
+      "st": "active"
     },
     {
       "b": "rocketud.com",
@@ -1054,7 +1138,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -1063,7 +1147,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -1072,7 +1156,7 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -1081,7 +1165,25 @@
         "phishing",
         "dapp"
       ],
-      "s": "2026-07-11",
+      "s": "2026-07-13",
+      "st": "active"
+    },
+    {
+      "b": "strataerc.com",
+      "t": [
+        "phishing",
+        "dapp"
+      ],
+      "s": "2026-07-13",
+      "st": "active"
+    },
+    {
+      "b": "strataeth.com",
+      "t": [
+        "phishing",
+        "dapp"
+      ],
+      "s": "2026-07-13",
       "st": "active"
     },
     {
@@ -1107,6 +1209,15 @@
         "dapp"
       ],
       "s": "2025-12-31"
+    },
+    {
+      "b": "teafinace.com",
+      "t": [
+        "phishing",
+        "dapp"
+      ],
+      "s": "2026-07-13",
+      "st": "active"
     },
     {
       "b": "turtleag.com",
@@ -1168,7 +1279,8 @@
         "phishing",
         "dapp"
       ],
-      "s": "2025-12-31"
+      "s": "2026-07-13",
+      "st": "paused"
     },
     {
       "b": "turtleha.com",
@@ -1224,12 +1336,49 @@
       "s": "2025-12-31"
     },
     {
+      "b": "urbnederc.com",
+      "t": [
+        "phishing",
+        "dapp"
+      ],
+      "s": "2026-07-13",
+      "st": "active"
+    },
+    {
+      "b": "urbnedeth.com",
+      "t": [
+        "phishing",
+        "dapp"
+      ],
+      "s": "2026-07-13",
+      "st": "active"
+    },
+    {
+      "b": "urbnedfin.com",
+      "t": [
+        "phishing",
+        "dapp"
+      ],
+      "s": "2026-07-13",
+      "st": "active"
+    },
+    {
+      "b": "urbnedweb.com",
+      "t": [
+        "phishing",
+        "dapp"
+      ],
+      "s": "2026-07-13",
+      "st": "active"
+    },
+    {
       "b": "vnxerc.com",
       "t": [
         "phishing",
         "dapp"
       ],
-      "s": "2025-12-31"
+      "s": "2026-07-13",
+      "st": "active"
     },
     {
       "b": "vnxeth.com",
@@ -1237,7 +1386,8 @@
         "phishing",
         "dapp"
       ],
-      "s": "2025-12-31"
+      "s": "2026-07-13",
+      "st": "active"
     },
     {
       "b": "vnxwallet.com",
